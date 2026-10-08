@@ -1,0 +1,8 @@
+tmp/
+bin/*.so
+demo/bin/*.so
+*.o
+.venv/
+.godot/
+build/
+tools/
