@@ -5,4 +5,6 @@ demo/bin/*.so
 .venv/
 .godot/
 build/
-tools/
+tools/demo/bin/*.dylib
+build.log
+.DS_Store

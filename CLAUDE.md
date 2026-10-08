@@ -11,12 +11,12 @@ Extensión GDExtension para Godot 4.5 (C++23, godot-cpp como submódulo en la ra
 ```bash
 git submodule update --init          # godot-cpp (necesario la primera vez)
 cmake -S . -B build/debug            # Debug por defecto -> godot-cpp template_debug
-cmake --build build/debug -j
+cmake --build build/debug -j4   # no usar -j sin número: agota la RAM
 cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release   # template_release
 ```
 
 - Requiere `libzmq` visible por `pkg-config` (`PkgConfig::ZMQ`).
-- La biblioteca se escribe directamente en `demo/bin/` como `libzmqstream.linux.<template>.x86_64.so`. Ese nombre debe coincidir con `demo/bin/zmq_stream.gdextension`; `GODOTCPP_SUFFIX` lo define godot-cpp. Los `.so` están en `.gitignore`.
+- La biblioteca se escribe directamente en `demo/bin/` como `libzmqstream.<plataforma>.<template>.<arch>.<so|dylib>` (Linux `.so`, macOS `.dylib`; en macOS instalar con `brew install zeromq pkg-config`). Ese nombre debe coincidir con `demo/bin/zmq_stream.gdextension`; `GODOTCPP_SUFFIX` lo define godot-cpp. Los `.so` y `.dylib` están en `.gitignore`.
 - `GODOTCPP_TARGET` se deriva del tipo de build; se puede forzar con `-DGODOTCPP_TARGET=editor`.
 - No hay tests ni linter configurados.
 - Probar el demo: abrir `demo/` en Godot 4.5 y ejecutar en paralelo el publicador de prueba (el endpoint por defecto de ambos lados es `tcp://127.0.0.1:5555`; el suscriptor hace `connect`, el publicador hace `bind`):
